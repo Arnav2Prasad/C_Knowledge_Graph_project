@@ -1,5 +1,5 @@
 Front Weight,Inference,Truth Bit,NOUN 1,NOUN1_ID,Verb,Verb descriptor,NOUN 2,NOUN2_ID,Back weight,Definition,End time
-10000000,0,1,Computer Science,-5,includes,utilizing,Data Structures,-5,10000000,Data structures are organized ways to store, manage, and retrieve data efficiently, enabling effective data manipulation and access within computer programs,NULL,
+10000000,0,1,Computer Science,-5,includes,utilizing,Data Structures,-5,10000000,Data structures are organized ways to store manage and retrieve data efficiently enabling effective data manipulation and access within computer programs,NULL,
 10000000,0,1,Computer Science,-5,includes,,Algorithm,-5,10000000,,
 10000000,0,1,Computer Science,-5,includes,,Programming Language,-5,10000000,,
 10000000,0,1,Computer Science,-5,includes,,Artificial Intelligence,-5,10000000,,
