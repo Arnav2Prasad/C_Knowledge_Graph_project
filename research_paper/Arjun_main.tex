@@ -3,6 +3,8 @@
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
 \usepackage{hyperref}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -246,26 +248,54 @@ Edges encapsulate the relationships between noun nodes. They are stored in the \
 
 
 
-\subsection*{WorkFlow}
+\subsection*{WorkFlow : Example of Entry Creation in the KG}
 
-This section will illustrate how an entry is made in the KG. 
-For the input line : Computer Science includes wide range of Data Structures.
+This section will illustrate how an entry is made in the KG.
+For the input line : "Computer Science includes wide range of
+Data Structures."
 
-Here, the parser will identify "Computer Science" as noun1 , "Data Structures" as noun2, "includes" as verb and "wide range of" as verb descriptor.
-The algorithm will create a new noun, that is noun3 (noun3 = noun1 + "\_" + noun2). For the given example, noun3 is "Computer Science\_Data Structures" 
-All the 3 nouns will be inserted to the central noun tree, if they do not exist.
-Addition of verb and verb descriptor is also done to the verb database tree.
+Here, the parser will identify "Computer Science" as "noun1" (1st noun of the sentence)
+and "Data Structures" as "noun2" (2nd noun of the given input sentence).
+Phrases like "includes" will be classified as "verb" and "wide range of" as "verb-descriptors".
 
-\\
-Now to make a connection:
-It will make the front connection as noun1 -> noun3 with weight as front-weight. If the connection is already present, it will add the front-weight to the existing weight of the relation.As a result, the priority of the existing relation will increase.
+Now there comes a need to store this sentence into the memory where our structural concept
+of KG comes into use.
+noun1 and noun2 (i.e., "Computer Science" and "Data Structures") will be inserted into the central AVL 
+tree (explained in section ....) where all nouns are stored.
 
-Similarly, a back connection as noun3 -> noun1 will be made with weight as back-weight.
+A new noun i.e., noun3 also gets formed: i.e., noun1 + "\_" + noun2 i.e., "Computer Science\_Data Structures"
+and will be inserted in the central AVL tree (reason prescribed in section ...).
 
-Making a connection involves storing the edge data in the query max\_heap of the noun's verb and a pointer to the edge in search\_max\_heap of the noun.
+Each noun should only be inserted if it does not already exist in the central AVL tree. 
+This prevents duplicates, ensuring no redundant nouns are stored, thus optimizing memory usage.
 
-Later, a pointer to noun3 is inserted in the subclass max\_heap of noun2 with weight as front-weight.
-The definition of noun3 is stored in noun3 as a string.
+If the noun already exists, connections will be made through the existing noun itself.
+
+The verb "includes" and verb descriptor "wide range of" are also stored in a similar manner
+in the Verb Tree and Verb descriptor Tree (explained in section ....).
+
+Further, irrespective of which branch of the central AVL tree the noun gets inserted, 
+the connections among them are made, i.e.:
+
+\begin{tikzpicture}[node distance=1.5cm, >=Stealth]
+    \node (noun3) {noun3};
+    \node (verb) [right=0.5cm of noun3] {verb};
+    \node (verb_descriptor) [right=0.5cm of verb] {verb\_descriptor};
+    \node (noun2) [right=0.5cm of verb_descriptor] {noun2};
+
+    \draw[->] (noun3) -- (verb);
+    \draw[->] (verb) -- (verb_descriptor);
+    \draw[->] (verb_descriptor) -- (noun2);
+\end{tikzpicture}
+
+(explained in section ....)
+
+In instances where the input line "Computer Science includes a wide range of Data Structures." is 
+repeated, instead of creating new connections, the weights associated with the connections 
+will be incremented, ensuring no redundant data and connections are stored.
+
+This structure helps maintain the relationships within the knowledge graph, 
+ensuring that each entry is efficiently organized and connected.
 
 \section{ANALYSIS OF ALGORITHMS}
 \subsection{Insertion}
@@ -458,4 +488,4 @@ The further goal is to create a KG from unstructured data with the help of NLP, 
 \bibitem{b8} Aidan Hogan, Eva Blomqvist, Michael Cochez, Claudia D’amato, Gerard De Melo, Claudio Gutierrez, Sabrina Kirrane, José Emilio Labra Gayo, Roberto Navigli, Sebastian Neumaier, Axel-Cyrille Ngonga Ngomo, Axel Polleres, Sabbir M. Rashid, Anisa Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab, and Antoine Zimmermann. 2022. Knowledge graphs. ACM Computing Surveys. \url{https://arxiv.org/pdf/2003.02320}
 \bibitem{b9} The C Programming Language \url{https://github.com/auspbro/ebook-c/blob/master/The.C.Programming.Language.2Nd.Ed%20Prentice.Hall.Brian.W.Kernighan.and.Dennis.M.Ritchie..pdf}
 \end{thebibliography}
-\end{document}
+\end{document}  
