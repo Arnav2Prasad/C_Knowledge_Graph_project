@@ -110,13 +110,16 @@ The aim of this paper is to provide a road-map for a thorough exploration of the
 
 
 \section{Literature Survey}
-An extensive body of literature, including surveys, books, and academic publications, has been dedicated to exploring the intricacies of KGs. 
-They provide the aspects and key topics related to KG.
 
-We also came across one of the languages / vocabulary in which a KG may be designed, which is a data-modelling language called RDF (Resource Distribution Framework) \cite{b1}.
+An extensive body of literature, encompassing surveys, books, and academic publications, delves into the complexities of Knowledge Graphs (KGs). These resources cover various aspects and key topics pertinent to KGs. During our exploration, we identified a data-modeling language, RDF (Resource Description Framework) \cite{b1}, used in designing KGs. Other encountered languages include SPARQL \cite{b10} and Neo4j \cite{b11}. Additionally, we reviewed a comprehensive paper on the foundations of modern query languages for graph databases \cite{b12}.
 
-Our goal is to put forward the structural implementation and significance of KG.
+Our primary reference was the paper ``Knowledge Graphs'' by Aidan Hogan et al. \cite{b8}. This paper, featuring a rich bibliography with over 400 references, offers detailed explanations of many KG concepts such as graph modeling, ontologies, deductive knowledge, graph embeddings, and more. It was an insightful read, effectively consolidating content from numerous other sources.
 
+We also learnt the directed - edge labelled graph model, which had weighted edges. The paper also included relevant topics that were necessary to apply in the KG, like schema, context and identity.
+There were also discussions on storage of graphs in the paper on RDF Data Storage\cite{b13}
+Taking inspiration from this abstraction of KG, we designed our own structure that suited the requirement of querying
+
+Our objective is to present the structural implementation and significance of KGs, integrating insights from our literature review and prior knowledge in topics like data structures and C programming.
 
 \section{Methodology}
 Data includes a wide range of scope and context. It can be of variable length, contexts, grammars, etc.
@@ -573,5 +576,11 @@ The further goal is to create a KG from unstructured data with the help of NLP, 
 \bibitem{b7} \url{https://medium.com/analytics-vidhya/introduction-to-knowledge-graphs-and-their-applications-fb5b12da2a8b}
 \bibitem{b8} Aidan Hogan, Eva Blomqvist, Michael Cochez, Claudia D’amato, Gerard De Melo, Claudio Gutierrez, Sabrina Kirrane, José Emilio Labra Gayo, Roberto Navigli, Sebastian Neumaier, Axel-Cyrille Ngonga Ngomo, Axel Polleres, Sabbir M. Rashid, Anisa Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab, and Antoine Zimmermann. 2022. Knowledge graphs. ACM Computing Surveys. \url{https://arxiv.org/pdf/2003.02320}
 \bibitem{b9} The C Programming Language \url{https://github.com/auspbro/ebook-c/blob/master/The.C.Programming.Language.2Nd.Ed%20Prentice.Hall.Brian.W.Kernighan.and.Dennis.M.Ritchie..pdf}
+\bibitem{b10} SPARQL 1.1 Documentation \url{https://www.w3.org/TR/sparql11-query/}
+\bibitem{b11} Neo4j Documentation 
+\url{https://neo4j.com/docs/}
+\bibitem{b12} Foundations of Modern Query Languages for Graph
+Databases \url{https://dl.acm.org/doi/pdf/10.1145/3104031}
+\bibitem{b13} RDF Data Storage and Query Processing Schemes \url{https://dl.acm.org/doi/pdf/10.1145/3177850}
 \end{thebibliography}
 \end{document}  
