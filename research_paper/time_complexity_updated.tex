@@ -175,9 +175,10 @@ To accomplish all these features, the designed input data set contains the follo
 
 \section*{IV. ARCHITECTURE}
 
+\subsection{Data Structures Used}
 The implementation in C programming language\cite{b9}, employs structures and pointers for AVL trees and arrays for heaps, providing a robust framework for managing noun-centric knowledge representations and their interconnections via verbs.
 
-\subsection*{A. AVL Tree}
+\subsubsection{AVL Tree}
 
 AVL trees\cite{b14} are among the most efficient data structures for searching and inserting nodes(data) due to their 
 self-balancing nature. The predictable performance of AVL trees makes 
@@ -189,7 +190,7 @@ The insertion and search operations in an AVL tree have a time complexity of $O(
 where "n" represents the number of nodes already present in the AVL tree.
 
 
-\subsection*{B. Maximum Heap}
+\subsubsection{Maximum Heap}
 
 Max\_heaps\cite{b14} are highly efficient data structures for managing and retrieving the maximum weighted element . 
 They maintain a structure similar to the complete binary tree structure, ensuring that the most weighted 
@@ -203,7 +204,7 @@ All these make Max\_Heap quite useful in applications like scheduling algorithms
 and real-time simulations.
 
 
-\subsection{Structure}
+\subsection{Structural Implementation}
 
 \subsubsection{\textbf{Central Noun Tree}}
 The core of our KG is an AVL tree where each node represents a noun. Each noun node comprises the following elements:
@@ -350,7 +351,7 @@ This structure helps maintain the relationships within the KG,
 ensuring that each entry is efficiently organized and connected.
 
 
-\subsection{OUTPUT EXTRACTION FROM KG}
+\subsection{Output Extraction and Querying the KG}
 
 As an end-user, one may seek the most relevant response to their query. Users might ask questions such as:
 \begin{itemize}
@@ -608,7 +609,7 @@ Hence, the conclusion is as follows:
         T_{insertion}(n) = O(n\lg n) 
     \end{equation*}
 
-    \item \textbf{Querying} From equations (6) - (7), worst case time complexity for querying is 
+    \item \textbf{Querying} From equations (6) - (8), worst case time complexity for querying is 
     \begin{equation*}
         T_{querying}(n) = O(n\lg n) 
     \end{equation*}
