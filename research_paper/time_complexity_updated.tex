@@ -370,7 +370,7 @@ For example, if a user inputs: "Comptr Science includes?"
 and proceed based on the user's response.
 \\
 
-As developers, it is crucial to handle all these types of queries efficiently. Therefore, functions like `display\_info\_lines()` and `print\_info\_lines()` are used, which are detailed in subsequent sections.
+As developers, it is crucial to handle all these types of queries efficiently. Therefore, functions like \texttt{display\_info\_lines} and \texttt{print\_info\_lines} are used, which are detailed in subsequent sections.
 \\
 
 Responding to questions like "Describe Computer Science" could overwhelm the user with an extensive amount of data, as the KG may contain thousands of entries related to Computer Science. \\
@@ -388,7 +388,7 @@ Traversal."
 User can shoot their desired queries in an interactive manner. 
 
 Suppose the KG receives the input "Computer Science includes ?" and the user requests: "I want 10 lines of data."
-In the KG, data is stored as depicted in the figure:
+In the KG, data is stored (only necessary details shown, to give an overview) as depicted in the figure:
 
 \begin{figure}[htbp]
 \centering
@@ -397,7 +397,7 @@ In the KG, data is stored as depicted in the figure:
 \label{fig}
 \end{figure}
 
-
+The dotted line "returns 0" is not a connection, and is rather a function call's return value
 
 Although the KG may contain thousands of connections, for simplicity, let's assume it has three direct connections.
 
