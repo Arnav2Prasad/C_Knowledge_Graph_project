@@ -18,31 +18,6 @@
 \title{ Kernel - Level Semantic Search with Knowledge Graphs
 }
 
-% \author{\IEEEauthorblockN{\textsuperscript}
-% \and
-% \IEEEauthorblockN{Arjun Deodhar}
-
-% \IEEEauthorblockA{\textit{COEP Technological University} \\
-% Dept. of Computer Science\\
-% % \textit{COEP}\\
-% Pune, Maharashtra\\
-% deodhark22.comp@coeptech.ac.in}
-% \and
-% \IEEEauthorblockN{Arnav Prasad}
-% \IEEEauthorblockA{\textit{COEP Technological University} \\
-% Dept. of Computer Science\\
-% % \textit{COEP}\\
-% Pune, Maharashtra \\
-% arnavp22.comp@coeptech.ac.in}
-% \and
-% \IEEEauthorblockN{Prajwal Bhosale}
-% \IEEEauthorblockA{\textit{COEP Technological University} \\
-% % \textit{COEP}\\
-% Dept. of Computer Science\\
-% Pune, Maharashtra\\
-% bhosalepp22.comp@coeptech.ac.in}
-% }
-
 \author{\IEEEauthorblockN{}
 \and
 \IEEEauthorblockN{Arjun Deodhar}
@@ -63,7 +38,6 @@ arnavp22.comp@coeptech.ac.in}
 Pune, Maharashtra, India \\
 bhosalepp22.comp@coeptech.ac.in}
 }
-
 
 \maketitle
 
@@ -89,9 +63,6 @@ The end objective of KG is to operationalize Knowledge (a piece of information) 
     \item \textbf{NLP}: Natural Language Processing
     \item \textbf{LLM}: Large Language Model
 \end{itemize}
-
-
-
 
 \section{Introduction}
 KGs are advanced data structures that represent information in a network of interconnected entities and their relationships. They consist of nodes, representing entities (such as people, places, or concepts) and edges, representing the relationships between these entities. They are designed to enable machines to understand and process complex data, facilitating improved information retrieval, question answering, and semantic search capabilities.
@@ -136,7 +107,6 @@ A primary reference for our study was the paper "Knowledge Graphs"\cite{b8} by A
 The paper "The Potential of the PID Graph" \cite{b16} presented and highlighted the concept and importance of "identity" in the context of data parsing and extraction(as discussed in section..).
 
 The paper "Context-Aware Temporal Knowledge Graph Embedding" \cite{b17} examined the concept of temporal context (as discussed in section ..).
-
 
 % Our exploration identified RDF (Resource Description Framework) [1] as a prominent data-modeling language used in KG design. Other notable languages encountered include SPARQL [10] and Neo4j [11]. Additionally, we reviewed a comprehensive paper on the foundations of modern query languages for graph databases [12].
 
@@ -183,9 +153,7 @@ The constructed KG should be able to handle and recognize the following characte
 To accomplish all these features, the designed input data set contains the following fields: front-weight, inference, truth-bit, noun1, noun1\_id , verb , verb descriptor, noun2, noun2\_id, back-weight, definition, end-time.
 
 
-
-
-\section*{IV. ARCHITECTURE}
+\section{IV. ARCHITECTURE}
 
 \subsection{Data Structures Used}
 The implementation in C programming language\cite{b9}, employs structures and pointers for AVL trees and arrays for heaps, providing a robust framework for managing noun-centric knowledge representations and their interconnections via verbs.
