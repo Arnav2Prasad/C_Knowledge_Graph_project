@@ -376,9 +376,6 @@ To manage this, the algorithm prompts the user with a follow-up question: "How m
 There is also an option for the system to display all connections in decreasing order of their weights.
 
 
-
-
-
 \section{Querying and Traversal}
 
 
@@ -401,15 +398,14 @@ In the KG, data is stored as depicted in the figure:
 
 Although the KG may contain thousands of connections, for simplicity, let's assume it has three direct connections.
 
-Given the limited number of lines to be displayed, the KG will prioritize the connections based on their weights using a max heap structure and will allocate ratios to the nouns of the next connections. In this case, the ratios are split as 
-3:2:1 
-because the weights of the connections are in the ratio 3:2:1 (i.e., Data Structures, Programming Language, Interesting). The allowed lines will be distributed to the next nodes in these proportions, and this process will continue recursively until all the requested lines have been displayed.
+Given the limited number of lines to be displayed, the KG will prioritize the connections based on their weights using a max heap structure and will allocate ratios to the nouns of the next connections. In this case, the proportion is 3 : 2 : 1 
+because the weights of the connections are in the ratio 3 : 2 : 1 (i.e., Data Structures, Programming Language, Interesting). The allowed lines will be distributed to the next nodes in these proportions, and this process will continue recursively until all the requested lines have been displayed.\\
 
-This recursive algorithm is called `display\_info\_lines()`.
-
+\texttt{display\_info\_lines} is the recursive function that is used for this purpose
 
 
-\subsection{\textbf{display\_info\_lines}}
+
+\subsection{\textbf{\texttt{display\_info\_lines}}}
 
 This function takes
 \begin{itemize}
@@ -417,18 +413,15 @@ This function takes
 \item \textit{total\_lines} : The maximum number of lines to be printed. 
 \end{itemize}
 
-\\
 
-display\_info\_lines does:
+\texttt{display\_info\_lines} does:
 
 1) Search for \textit{input\_noun} : Search for the noun in the noun tree of the KG. This search is done to find a 100\% matching string.
 
 If a perfect match isn't found, then another search is done, which gathers all nouns that are matching more than a certain threshold, and an array of choices is generated from this traversal
 
-\\
 2) \textit{Display array of choices}: This is displayed as a "did you mean : " question, to correct spelling mistakes, in which the user is prompted with matching nouns. Depending on the user’s choice, the traversal is done.\\
 
-\\
 For example, if the user inputs: "Describe Computer Scien", the system will prompt with suggestions such as:
 "Did you mean:
 
@@ -442,7 +435,7 @@ and potentially several other suggestions.
 The user can then choose to select one or multiple options from the provided suggestions and get the desired output.
 
 
-\subsection{\textbf{print\_info\_lines}}
+\subsection{\textbf{\texttt{print\_info\_lines}}}
 There are two cases in this function:
 
 \begin{itemize}
@@ -459,17 +452,30 @@ There are two cases in this function:
     The KG is designed to ensure that the same relation is not traversed or printed more than once.
 \end{itemize}
 
+Now, in the above example let us assume that \textit{total\_lines} allocated are 15. Hence, the following distribution will occur for each connection
+\begin{itemize}
+\item "Computer Science includes Data Structures" : 1 line (for the connection itself), 6 for "Data Structures"
+\item "Computer Science has Programming Language" : 1 line, 4 for "Programming Language"
+\item "Computer Science is Interesting" : 1 line, 2 for interested
+\end{itemize}
 
-\\
+One line is consumed by the direct connections themselves, and further lines are given for the next level connections.
+A traversal queue will get constructed and recursive calls of \texttt{print\_info\_lines} will be made for each of Data Structures, Programming Language and Interesting.\\
 
+Assuming that Data Structures had only 2 direct connections, then 2 lines will get printed (out of the 6 that were allocated to it) and the remaining lines will get re-allocated to Programming Language.
 
+This means that the recursive call of Programming Language will have 8 lines (4 allocated before, 4 re-allocated from Data Structures)
 
-% where $n$ is the total number of nodes (nouns) in the graph. 
-% \\
-% Since \texttt{display\_info\_lines} calls this function and the time complexity is asymptotically the same, \texttt{display\_info\_lines} is also worst case $O(kn \lg n)$
+Here Programming Language has 1 line to print, hence the remaining 7 lines get re-allocated to Interesting.
 
-% Typically, not all nodes of the graph are traversed, and the time required is often less!
+Interesting has no lines to print, and hence returns the remaining lines (9 lines) to the noun Computer Science.
 
+Now, Computer Science constructs a traversal queue by utilising its sub-classes, that are not shown in the figure, and similar recursive calls occur for the subclass nouns.
+
+An important thing to note here is that sub-classes are only traversed for the first level, and further levels do not access subclass heaps.\\
+
+This feature of the algorithm ensures that connections are not printed more than once, and the same nodes are never traversed.
+In the end, the function returns the number of lines that got printed by it
 
 \section{ANALYSIS OF ALGORITHMS}
 \subsection{Insertion}
@@ -623,15 +629,7 @@ The structure of the KG eventually created ensures that correct relations are gi
 \\
 It is an effective implementation of the concept of KG
 \\
-The further goal is to create a KG from unstructured data with the help of NLP, making it more scalable, as illustrated in the image:
-
-\\
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.8\linewidth]{nlp_img.png} % Adjust the width as needed
-\caption{Figure illustrates the working of NLP}
-\label{fig}
-\end{figure}
+The further goal is to create a KG from unstructured data with the help of NLP, making it more scalable
 
 % \section*{References}
 \begin{thebibliography}{00}
@@ -642,7 +640,7 @@ The further goal is to create a KG from unstructured data with the help of NLP, 
 \bibitem{b5} Qi He, Bee-Chung Chen, and Deepak Agarwal. 2016. Building The LinkedIn Knowledge Graph. LinkedIn Blog. \url{https://engineering.linkedin.com/blog/2016/10/building-the-linkedin-knowledge-graph}
 \bibitem{b6} Edgar Meij. 2019. Understanding News using the Bloomberg Knowledge Graph. Invited talk at the Big Data Innovators Gathering (TheWebConf). Slides at \url{https://speakerdeck.com/emeij/understanding-news-using-the-bloomberg-knowledge-graph}
 \bibitem{b7} \url{https://medium.com/analytics-vidhya/introduction-to-knowledge-graphs-and-their-applications-fb5b12da2a8b}
-\bibitem{b8} Aidan Hogan, Eva Blomqvist, Michael Cochez, Claudia D’amato, Gerard De Melo, Claudio Gutierrez, Sabrina Kirrane, José Emilio Labra Gayo, Roberto Navigli, Sebastian Neumaier, Axel-Cyrille Ngonga Ngomo, Axel Polleres, Sabbir M. Rashid, Anisa Rula, Lukas Schmelzeisen, Juan Sequeda, Steffen Staab, and Antoine Zimmermann. 2022. Knowledge graphs. ACM Computing Surveys. \url{https://arxiv.org/pdf/2003.02320}
+\bibitem{b8} Aidan Hogan, Eva Blomqvist, et al, Knowledge graphs, 2022, ACM Computing Surveys available at : \url{https://arxiv.org/pdf/2003.02320}
 \bibitem{b9} The C Programming Language \url{https://github.com/auspbro/ebook-c/blob/master/The.C.Programming.Language.2Nd.Ed%20Prentice.Hall.Brian.W.Kernighan.and.Dennis.M.Ritchie..pdf}
 \bibitem{b10} SPARQL 1.1 Documentation \url{https://www.w3.org/TR/sparql11-query/}
 \bibitem{b11} Neo4j Documentation 
