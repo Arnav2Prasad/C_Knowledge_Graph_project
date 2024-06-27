@@ -65,8 +65,6 @@ The end objective of KG is to operationalize Knowledge (a piece of information) 
 \end{itemize}
 
 
-
-
 \section{Introduction}
 KGs are advanced data structures that represent information in a network of interconnected entities and their relationships. They consist of nodes, representing entities (such as people, places, or concepts) and edges, representing the relationships between these entities. They are designed to enable machines to understand and process complex data, facilitating improved information retrieval, question answering, and semantic search capabilities.
 The concept of the KG gained significant recognition in 2012 when Google \cite{b7} publicly credited their search solution to the use of KG.
@@ -74,12 +72,12 @@ The concept of the KG gained significant recognition in 2012 when Google \cite{b
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\linewidth{version_1_kg/intro_dots_image_kg.png}
+\includegraphics[width=0.8\linewidth]{intro_dots_image_kg.png}
 \caption{Figure shows example of KG construction.}
 \label{fig}
 \end{figure}
 
-An example of KG construction is shown in the figure below
+An example of KG construction is shown in the Figure 1
 
 
 The relationships in KG are often labeled to provide context and meaning, forming a rich, structured representation of knowledge.
@@ -201,7 +199,7 @@ The core of our KG is an AVL tree where each node represents a noun. Each noun n
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\linewidth]{c1.png} % Adjust the width as needed
+\includegraphics[width=0.8\linewidth]{vi_editor_typedef.png}
 \caption{Structural implementation in C}
 \label{fig}
 \end{figure}
@@ -209,7 +207,7 @@ The core of our KG is an AVL tree where each node represents a noun. Each noun n
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\linewidth]{fig_2_2.png} % Adjust the width as needed
+\includegraphics[width=0.8\linewidth]{noun_tree_node_pointer_diagram.png} % Adjust the width as needed
 \caption{Figure shows Structure diagram for Central Noun Tree node.}
 \label{fig}
 \end{figure}
@@ -258,7 +256,7 @@ Edges encapsulate the relationships between noun nodes. They are stored in the \
 \textit{Search\_max\_heap} nodes point to these edges.
 //
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=0.5\textwidth]{fig_4_2.png}}
+\centerline{\includegraphics[width=0.5\textwidth]{query_maxheap_nodes.png}}
 \caption{Figure illustrates the Structure of Edge.}
 \label{fig}
 \end{figure}
@@ -269,7 +267,7 @@ Edges encapsulate the relationships between noun nodes. They are stored in the \
 This section will illustrate how an entry is made in the KG as well as how queries are processed and the graph is traversed.
 
 \begin{figure}[htbp]
-\centerline{\includegraphics[width=0.4\textwidth]{workflow_fig.png}}
+\centerline{\includegraphics[width=0.4\textwidth]{workflow_diagram.png}}
 \caption{Figure illustrates the Workflow}
 \label{fig}
 \end{figure}
@@ -352,7 +350,7 @@ Although the KG may contain thousands of connections, for simplicity, let's assu
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.8\linewidth]{kg_explaination.png}
+\includegraphics[width=0.8\linewidth]{kg_explanation_example.png}
 \caption{Figure illustrates an example for graph traversal}
 \label{fig}
 \end{figure}
@@ -554,23 +552,26 @@ Hence, the conclusion is as follows:
 
 
 \section{RESULT}
-The graph constructed with the input data consistently produces accurate outputs.
-\\
-KG can infer new knowledge by applying logical reasoning over the existing data, supporting both direct and transitive inference. This capability is crucial for applications such as question answering, where the system needs to derive answers that are not explicitly stated but can be inferred from the available data.
-\\
-The algorithm is able to segregate the contexts from the data, and is able to give an accurate and reliable KG.
-\\
-On a 16-bit processor:
-For small inputs (10,000 lines), the code constructed the graph in one second, and querying was much more faster.
-The code took less than 20 minutes to construct a graph from 1,20,000 input lines 
-The querying took about a millisecond to fetch the desired output effectively.
+The graph constructed with the input data consistently produces accurate outputs.\\
+The algorithm is able to segregate the contexts from the data, supports both direct and transitive inference and is able to give an accurate KG.
+
+The algorithm presented in the paper underwent thorough analysis across various parameters, including different numbers of input lines. The analysis focused on the time required to create and query a KG.\\
+The system is equipped with an 11th Gen Intel(R) Core(TM) i5-1135G7 processor featuring 8 cores and VT-x virtualization support. The analysis was done using this laptop's specifications.
+
+
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\textwidth]{result_table.png}}
+\caption{Figure shows the analysis of the algorithm}
+\label{fig}
+\end{figure}
+
 
 \section{CONCLUSION}
-The structure of the KG eventually created ensures that correct relations are given for suitable query. It yields 100\% accuracy.
+This study puts forward a fundamental kernel-level implementation of a KG. 
+The proposed system demonstrates that querying a KG, which stores millions of data points, is remarkably fast. 
+The structure of the KG is designed to ensure that accurate relationships are provided for given queries, achieving 100\% accuracy.
 \\
-It is an effective implementation of the concept of KG
-\\
-The further goal is to create a KG from unstructured data with the help of NLP, making it more scalable
+The present work can be improved by integrating KG with NLP, which would enable the construction of KG from unstructured data.
 
 
 \begin{thebibliography}{00}
