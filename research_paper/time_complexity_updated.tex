@@ -205,15 +205,8 @@ and real-time simulations.
 
 \subsection{Structure}
 
-\subsubsection{Central Noun Tree}
+\subsubsection{\textbf{Central Noun Tree}}
 The core of our KG is an AVL tree where each node represents a noun. Each noun node comprises the following elements:
-    % 1. noun_name: A string representing the noun.
-    % 2. noun_definition: A string containing the definition of the noun.
-    % 3. noun_id: A unique identifier for the noun.
-    % 4. prev_verb_tree: An AVL tree containing verbs that form backlinks to other nouns.
-    % 5. next_verb_tree: An AVL tree containing verbs that form front links to other nouns.
-    % 6. search_maxheap: A max-heap for extracting the highest priority connections.
-    % 7. subclass_maxheap: A max-heap for accessing the highest priority subclasses of the noun.
 \begin{itemize}
 
     \item \textit{noun\_name}: Pointer to a string representing the noun.
@@ -242,9 +235,25 @@ The core of our KG is an AVL tree where each node represents a noun. Each noun n
 \label{fig}
 \end{figure}
 
+\subsubsection{\textbf{Prev and Next Verb Trees}}
+As explained previously, each noun\_tree node has its own next and previous verb\_trees. These contain connections to edges as well as some information about the verb being stored
+Each verb\_tree node comprises of:
+% char * verb_name;
+%         struct query_maxheap* qheap;
+%         struct verb_tree_node * left;
+%         struct verb_tree_node * right;
+%         long long int bf;
 
+\begin{itemize}
 
-\subsubsection{Verb Database Trees}
+    \item \textit{verb\_name}: Pointer to a string in the database tree of verbs
+    \item \textit{qheap}: A max\_heap that contains essential edge information
+    \item \textit{left, right, balance\_factor}:for maintaining AVL tree. 
+    \item \textit{next\_verb\_tree}: An AVL tree containing verbs that form front links to other nouns.
+    
+\end{itemize}
+
+\subsubsection{\textbf{Verb Database Trees}}
 Two additional AVL trees are maintained to store:
 \begin{itemize}
     \item verbs.
@@ -254,9 +263,7 @@ These database trees serve as storage repositories to efficiently reuse allocate
 For example, if the verb "plays" occurs in multiple input lines, then memory for the string "plays" will be allocated only once and all references to "plays" will eventually point to the same memory location. 
 Nodes in these trees are not interconnected, focusing solely on memory optimization.
 
-\\
-
-\subsubsection{Sub-class Max\_heap}
+\subsubsection{\textbf{Sub-class Max\_heap}}
 This includes the sub-classes of the noun. For example, animal\_python,animal\_human and animal\_lion will be sub-classes of animal  
 \begin{itemize}
     \item A pointer to the target noun node.
@@ -272,7 +279,7 @@ This includes the sub-classes of the noun. For example, animal\_python,animal\_h
 
 \\
 
-\subsubsection{Edge Representation}
+\subsubsection{\textbf{Edge Representation, search max\_heaps}}
 Edges encapsulate the relationships between noun nodes. They are stored in the \textit{query\_max\_heap} of the verb nodes. Each edge contains:
 \begin{itemize}
 
@@ -284,10 +291,6 @@ Edges encapsulate the relationships between noun nodes. They are stored in the \
 
 \textit{Search\_max\_heap} nodes point to these edges.
 //
-
-
-
-
 \begin{figure}[htbp]
 \centerline{\includegraphics[width=0.5\textwidth]{fig_4_2.png}}
 \caption{Figure illustrates the Structure of Edge.}
