@@ -18,6 +18,31 @@
 \title{ Kernel - Level Semantic Search with Knowledge Graphs
 }
 
+% \author{\IEEEauthorblockN{\textsuperscript}
+% \and
+% \IEEEauthorblockN{Arjun Deodhar}
+
+% \IEEEauthorblockA{\textit{COEP Technological University} \\
+% Dept. of Computer Science\\
+% % \textit{COEP}\\
+% Pune, Maharashtra\\
+% deodhark22.comp@coeptech.ac.in}
+% \and
+% \IEEEauthorblockN{Arnav Prasad}
+% \IEEEauthorblockA{\textit{COEP Technological University} \\
+% Dept. of Computer Science\\
+% % \textit{COEP}\\
+% Pune, Maharashtra \\
+% arnavp22.comp@coeptech.ac.in}
+% \and
+% \IEEEauthorblockN{Prajwal Bhosale}
+% \IEEEauthorblockA{\textit{COEP Technological University} \\
+% % \textit{COEP}\\
+% Dept. of Computer Science\\
+% Pune, Maharashtra\\
+% bhosalepp22.comp@coeptech.ac.in}
+% }
+
 \author{\IEEEauthorblockN{}
 \and
 \IEEEauthorblockN{Arjun Deodhar}
@@ -38,6 +63,7 @@ arnavp22.comp@coeptech.ac.in}
 Pune, Maharashtra, India \\
 bhosalepp22.comp@coeptech.ac.in}
 }
+
 
 \maketitle
 
@@ -63,6 +89,9 @@ The end objective of KG is to operationalize Knowledge (a piece of information) 
     \item \textbf{NLP}: Natural Language Processing
     \item \textbf{LLM}: Large Language Model
 \end{itemize}
+
+
+
 
 \section{Introduction}
 KGs are advanced data structures that represent information in a network of interconnected entities and their relationships. They consist of nodes, representing entities (such as people, places, or concepts) and edges, representing the relationships between these entities. They are designed to enable machines to understand and process complex data, facilitating improved information retrieval, question answering, and semantic search capabilities.
@@ -107,6 +136,7 @@ A primary reference for our study was the paper "Knowledge Graphs"\cite{b8} by A
 The paper "The Potential of the PID Graph" \cite{b16} presented and highlighted the concept and importance of "identity" in the context of data parsing and extraction(as discussed in section..).
 
 The paper "Context-Aware Temporal Knowledge Graph Embedding" \cite{b17} examined the concept of temporal context (as discussed in section ..).
+
 
 % Our exploration identified RDF (Resource Description Framework) [1] as a prominent data-modeling language used in KG design. Other notable languages encountered include SPARQL [10] and Neo4j [11]. Additionally, we reviewed a comprehensive paper on the foundations of modern query languages for graph databases [12].
 
@@ -153,7 +183,9 @@ The constructed KG should be able to handle and recognize the following characte
 To accomplish all these features, the designed input data set contains the following fields: front-weight, inference, truth-bit, noun1, noun1\_id , verb , verb descriptor, noun2, noun2\_id, back-weight, definition, end-time.
 
 
-\section{IV. ARCHITECTURE}
+
+
+\section*{IV. ARCHITECTURE}
 
 \subsection{Data Structures Used}
 The implementation in C programming language\cite{b9}, employs structures and pointers for AVL trees and arrays for heaps, providing a robust framework for managing noun-centric knowledge representations and their interconnections via verbs.
@@ -360,8 +392,8 @@ Traversal."
 
 User can shoot their desired queries in an interactive manner. 
 
-Suppose the KG receives the input "Computer Science includes ?" and the user requests: "I want 10 lines of data."
-In the KG, data is stored (only necessary details shown, to give an overview) as depicted in the figure:
+Suppose the KG receives the input "Computer Science includes ?" and the user requests: "I want 15 lines of data."
+Although the KG may contain thousands of connections, for simplicity, let's assume it has three direct connections as shown in the figure
 
 \begin{figure}[htbp]
 \centering
@@ -372,14 +404,38 @@ In the KG, data is stored (only necessary details shown, to give an overview) as
 
 The dotted line "returns 0" is not a connection, and is rather a function call's return value
 
-Although the KG may contain thousands of connections, for simplicity, let's assume it has three direct connections.
+
 
 Given the limited number of lines to be displayed, the KG will prioritize the connections based on their weights using a max heap structure and will allocate ratios to the nouns of the next connections. In this case, the proportion is 3 : 2 : 1 
 because the weights of the connections are in the ratio 3 : 2 : 1 (i.e., Data Structures, Programming Language, Interesting). The allowed lines will be distributed to the next nodes in these proportions, and this process will continue recursively until all the requested lines have been displayed.\\
 
-\texttt{display\_info\_lines} is the recursive function that is used for this purpose
 
+Now, in the above example, \textit{total\_lines} allocated are 15. Hence, the following distribution will occur for each connection
+\begin{itemize}
+\item "Computer Science includes Data Structures" : 1 line (for the connection itself), 6 for "Data Structures"
+\item "Computer Science has Programming Language" : 1 line, 4 for "Programming Language"
+\item "Computer Science is Interesting" : 1 line, 2 for "Interesting"
+\end{itemize}
 
+One line is consumed by the direct connections themselves, and further lines are given for the next level connections.
+A traversal queue will get constructed and recursive calls of \texttt{print\_info\_lines} will be made for each of "Data Structures", "Programming Language" and "Interesting".\\
+
+Assuming that "Data Structures" had only 2 direct connections, then 2 lines will get printed (out of the 6 that were allocated to it) and the remaining lines will get re-allocated to "Programming Language".
+
+This means that the recursive call of "Programming Language" will have 8 lines (4 allocated before, 4 re-allocated from "Data Structures")
+
+Here "Programming Language" has 1 line to print, hence the remaining 7 lines get re-allocated to "Interesting".
+
+"Interesting" has no lines to print, and hence returns the remaining lines (9 lines) to the noun "Computer Science".
+
+Now, "Computer Science" constructs a traversal queue by utilising its sub-classes, that are not shown in the figure, and similar recursive calls occur for the subclass nouns.
+
+An important thing to note here is that sub-classes are only traversed for the first level, and further levels do not access subclass heaps.\\
+
+This feature of the algorithm ensures that connections are not printed more than once, and the same nodes are never traversed.
+In the end, the function returns the number of lines that got printed by it
+
+The functions used for traversal are given below 
 
 \subsection{\textbf{\texttt{display\_info\_lines}}}
 
@@ -396,18 +452,20 @@ This function takes
 
 If a perfect match isn't found, then another search is done, which gathers all nouns that are matching more than a certain threshold, and an array of choices is generated from this traversal
 
-2) \textit{Display array of choices}: This is displayed as a "did you mean : " question, to correct spelling mistakes, in which the user is prompted with matching nouns. Depending on the user’s choice, the traversal is done.\\
+2) \textit{Display array of choices}: This is displayed as a "did you mean : " question, to correct spelling mistakes, in which the user is prompted with matching nouns. For the example, refer (...)
 
-For example, if the user inputs: "Describe Computer Scien", the system will prompt with suggestions such as:
-"Did you mean:
+% Depending on the user’s choice, the traversal is done.\\
 
-\begin{enumerate}
-    \item Computer Science ?
-    \item Computer Scientist ?
-    \item Computer Science Theory ?"
-\end{enumerate}
+% For example, if the user inputs: "Describe Computer Scien", the system will prompt with suggestions such as:
+% "Did you mean:
 
-and potentially several other suggestions.
+% \begin{enumerate}
+%     \item Computer Science ?
+%     \item Computer Scientist ?
+%     \item Computer Science Theory ?"
+% \end{enumerate}
+
+% and potentially several other suggestions.
 The user can then choose to select one or multiple options from the provided suggestions and get the desired output.
 
 
@@ -428,30 +486,30 @@ There are two cases in this function:
     The KG is designed to ensure that the same relation is not traversed or printed more than once.
 \end{itemize}
 
-Now, in the above example let us assume that \textit{total\_lines} allocated are 15. Hence, the following distribution will occur for each connection
-\begin{itemize}
-\item "Computer Science includes Data Structures" : 1 line (for the connection itself), 6 for "Data Structures"
-\item "Computer Science has Programming Language" : 1 line, 4 for "Programming Language"
-\item "Computer Science is Interesting" : 1 line, 2 for interested
-\end{itemize}
+% Now, in the above example, \textit{total\_lines} allocated are 15. Hence, the following distribution will occur for each connection
+% \begin{itemize}
+% \item "Computer Science includes Data Structures" : 1 line (for the connection itself), 6 for "Data Structures"
+% \item "Computer Science has Programming Language" : 1 line, 4 for "Programming Language"
+% \item "Computer Science is Interesting" : 1 line, 2 for "Interesting"
+% \end{itemize}
 
-One line is consumed by the direct connections themselves, and further lines are given for the next level connections.
-A traversal queue will get constructed and recursive calls of \texttt{print\_info\_lines} will be made for each of Data Structures, Programming Language and Interesting.\\
+% One line is consumed by the direct connections themselves, and further lines are given for the next level connections.
+% A traversal queue will get constructed and recursive calls of \texttt{print\_info\_lines} will be made for each of "Data Structures", "Programming Language" and "Interesting".\\
 
-Assuming that Data Structures had only 2 direct connections, then 2 lines will get printed (out of the 6 that were allocated to it) and the remaining lines will get re-allocated to Programming Language.
+% Assuming that "Data Structures" had only 2 direct connections, then 2 lines will get printed (out of the 6 that were allocated to it) and the remaining lines will get re-allocated to "Programming Language".
 
-This means that the recursive call of Programming Language will have 8 lines (4 allocated before, 4 re-allocated from Data Structures)
+% This means that the recursive call of "Programming Language" will have 8 lines (4 allocated before, 4 re-allocated from "Data Structures")
 
-Here Programming Language has 1 line to print, hence the remaining 7 lines get re-allocated to Interesting.
+% Here "Programming Language" has 1 line to print, hence the remaining 7 lines get re-allocated to "Interesting".
 
-Interesting has no lines to print, and hence returns the remaining lines (9 lines) to the noun Computer Science.
+% "Interesting" has no lines to print, and hence returns the remaining lines (9 lines) to the noun "Computer Science".
 
-Now, Computer Science constructs a traversal queue by utilising its sub-classes, that are not shown in the figure, and similar recursive calls occur for the subclass nouns.
+% Now, "Computer Science" constructs a traversal queue by utilising its sub-classes, that are not shown in the figure, and similar recursive calls occur for the subclass nouns.
 
-An important thing to note here is that sub-classes are only traversed for the first level, and further levels do not access subclass heaps.\\
+% An important thing to note here is that sub-classes are only traversed for the first level, and further levels do not access subclass heaps.\\
 
-This feature of the algorithm ensures that connections are not printed more than once, and the same nodes are never traversed.
-In the end, the function returns the number of lines that got printed by it
+% This feature of the algorithm ensures that connections are not printed more than once, and the same nodes are never traversed.
+% In the end, the function returns the number of lines that got printed by it
 
 \section{ANALYSIS OF ALGORITHMS}
 \subsection{Insertion}
@@ -511,8 +569,8 @@ The function \texttt{display\_info\_lines} is just a wrapper on
 
 For worst-case analysis, we consider \textit{total\_lines}, the input to these querying functions to be arbitrarily large, and in the context of the C Programming Language, we have considered \textit{total\_lines} to be INT\_MAX.
 
-\begin{enumerate}
-    \item \texttt{display\_info\_lines} :
+
+\subsubsection{\texttt{display\_info\_lines}} :
     \\Searching for \textit{input\_noun} takes overall $O(k \lg n)$  time where 
     \\k = size of the input string
     \\n = number of nouns (noun nodes) in the noun tree.
@@ -522,7 +580,7 @@ take worst case  $O(pn \lg n)$ where
     \\After that, the array of choices is created and displayed. If
 the user wants to traverse all the $k$ choices, then the recursive
 function print info lines is called for each choice noun.
-    \item \texttt{print\_info\_lines} :
+\subsubsection{\texttt{print\_info\_lines}} :
     \begin{itemize}
         \item \textbf{Too Few lines allocated for printing} :
         \\Here, the input noun has fewer relations than the lines
@@ -569,7 +627,6 @@ The worst-case time complexity of \texttt{print\_info\_lines} is
     T(n) = O(n\lg n)
 \end{equation}
 \end{itemize}
-\end{enumerate}
 Since \texttt{display\_info\_lines} calls this function and the time complexity is asymptotically the same, \texttt{display\_info\_lines} is also worst case $O(n \lg n)$
 Typically, not all nodes of the graph are traversed, and the
 time required is often less!
