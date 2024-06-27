@@ -541,7 +541,7 @@ For worst-case analysis, we consider \textit{total\_lines}, the input to these q
 
 \begin{enumerate}
     \item \texttt{display\_info\_lines} :
-    \\Searching for \textit{input\_noun} takes overall $O(kn \lg n)$  time where 
+    \\Searching for \textit{input\_noun} takes overall $O(n \lg n)$  time where 
     \\k = size of the input string
     \\n = number of nouns (noun nodes) in the noun tree.
     \\If a perfect match isn’t found, the second search will also
@@ -598,7 +598,7 @@ The worst-case time complexity of \texttt{print\_info\_lines} is
 \end{equation}
 \end{itemize}
 \end{enumerate}
-Since \texttt{display\_info\_lines} calls this function and the time complexity is asymptotically the same, \texttt{display\_info\_lines} is also worst case $O(kn \lg n)$
+Since \texttt{display\_info\_lines} calls this function and the time complexity is asymptotically the same, \texttt{display\_info\_lines} is also worst case $O(n \lg n)$
 Typically, not all nodes of the graph are traversed, and the
 time required is often less!
 
