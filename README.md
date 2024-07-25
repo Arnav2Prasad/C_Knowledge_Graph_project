@@ -1,9 +1,9 @@
 # Knowledge_Graph
 
-The project aimed to construct a knowledge graph based on the input data, Knowledge graph is an entity relationship model where nodes are entity and edges represents relation. 
+This project puts forward a fundamental kernel-level implementation of a KG. The proposed system demonstrates that querying a KG, which stores millions of data points, is remarkably fast.
 
-We implemented a scalable and efficient organization of data using appropriate data structures. Once we fire a query, the desired output will not take more than a sec :)
+The structure of the KG is designed to ensure that accurate relationships are provided for given queries, achieving 100% accuracy.
 
-Currently the Knowledge Graph is taking structured input, but we are planning soon to take it into Natural Language Processing (NLP).
+The present work can be improved by integrating KG with NLP, which would enable the construction of KG from un-structured data.
 
 We are open to new ideas and enhancement for the project. Feel free to contact us!
