@@ -1,6 +1,6 @@
 # Knowledge_Graph
 
-This project puts forward a fundamental kernel-level implementation of a Knowledge Graph (KG). 
+This project puts forward a fundamental implementation of a Knowledge Graph (KG). 
 
 The proposed system demonstrates that querying a KG, which stores millions of data points, is remarkably fast.
 
